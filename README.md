@@ -1,7 +1,3 @@
-Certainly! Here's a basic format for a README file tailored to your Django project:
-
----
-
 # Syanape Discussion Project
 
 ## Overview
@@ -86,7 +82,3 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 - This project was developed as part of learning Django and web development techniques.
 - Thanks to the Django community for their excellent documentation and resources.
-
----
-
-Feel free to customize the sections based on additional details specific to your project. Include any relevant information about deployment, API documentation, or testing instructions as needed. This README template provides a structured outline to help users understand and navigate your Django application effectively.
