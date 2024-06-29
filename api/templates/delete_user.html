@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <title>Delete User</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <script src="{% static 'scripts.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Delete User</h1>
+      <p>User ID: {{ user.id }}</p>
+      <p>Name: {{ user.name }}</p>
+      <p>Email: {{ user.email }}</p>
+
+      <form action="{% url 'delete_user' user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete User</button>
+      </form>
+
+      {% if error_message %}
+      <p class="error">Error: {{ error_message }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

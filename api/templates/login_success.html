@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Successful</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <script src="{% static 'scripts.js' %}"></script>
+    <script>
+      setTimeout(function () {
+        window.location.href = "{% url 'user_home' user.id %}";
+      }, 3000);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login Successful</h1>
+      <p>
+        Welcome, {{ user.name }}! You will be redirected to your home page
+        shortly.
+      </p>
+    </div>
+  </body>
+</html>

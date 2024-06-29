@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Success</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Post Deleted</h1>
+      <p>The following post has been deleted:</p>
+      <p>{{ post.text }}</p>
+      {% if post.image %}
+      <img src="{{ post.image.url }}" alt="Post Image" />
+      {% endif %}
+      <div class="hashtags">
+        {% for hashtag in post.hashtags %}
+        <span>#{{ hashtag }}</span>
+        {% endfor %}
+      </div>
+      <a href="{% url 'home' %}">Go back to home</a>
+    </div>
+  </body>
+</html>

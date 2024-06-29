@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discussions by Text</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <script src="{% static 'scripts.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Discussions by Text</h1>
+      <form method="POST" action="{% url 'list_discussions_by_text' %}">
+        {% csrf_token %}
+        <label for="text_query">Text Query:</label>
+        <input
+          type="text"
+          id="text_query"
+          name="text_query"
+          required
+        /><br /><br />
+        <button type="submit">Search</button>
+      </form>
+
+      <h2>Discussion List:</h2>
+      <ul class="discussion-list">
+        {% if discussions %} {% for discussion in discussions %}
+        <li class="discussion-item">
+          <strong>{{ discussion.text }}</strong><br />
+          {% if discussion.image_url %}
+          <img src="{{ discussion.image_url }}" alt="Discussion Image" /><br />
+          {% endif %} Tags: {{ discussion.hashtags|join:", " }}<br />
+          Created: {{ discussion.created_at }}<br />
+          Updated: {{ discussion.updated_at }}
+        </li>
+        {% empty %}
+        <li>No discussions found.</li>
+        {% endfor %} {% else %}
+        <li>{{ error }}</li>
+        {% endif %}
+      </ul>
+    </div>
+  </body>
+</html>

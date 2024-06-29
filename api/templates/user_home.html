@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <script src="{% static 'scripts.js' %}"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul class="navbar-list">
+        <li><h3>{{ user.name }}</h3></li>
+        <li><a href="{% url 'update_user' user.id %}">Edit Profile</a></li>
+        <li><a href="{% url 'delete_user' user.id %}">Delete Profile</a></li>
+        <li>
+          <button onclick="logout()">Logout</button>
+        </li>
+
+        <li>
+          <form action="{% url 'search_user' %}" method="get">
+            <input type="text" name="query" placeholder="Search Users" />
+            <button type="submit">Search</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+    <div class="main-content">
+      <aside class="side-drawer">
+        <ul class="side-drawer-list">
+          <li><a href="{% url 'create_post' %}">Create Post</a></li>
+          <li><a href="{% url 'show_user_list' %}">User List</a></li>
+          <li
+            ><a href="{% url 'list_discussions_by_tags' %}"
+              >Search by Hashtag</a
+            ></li
+          >
+          <li
+            ><a href="{% url 'list_discussions_by_text' %}"
+              >Search by Text</a
+            ></li
+          >
+        </ul>
+      </aside>
+      <section class="post-section">
+        <h1>Your Posts</h1>
+        <div class="posts">
+          {% for post in user.posts.all %}
+          <div class="post">
+            <h2>{{ post.title }}</h2>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image" />
+            {% endif %}
+            <p>{{ post.text }}</p>
+            <p>Posted on: {{ post.created_at }}</p>
+            <div class="hashtags">
+              {% for hashtag in post.hashtags.all %}
+              <span>#{{ hashtag.name }}</span>
+              {% endfor %}
+            </div>
+            <div class="likes">
+              <p>Likes: {{ post.likes.count }}</p>
+            </div>
+            <div class="post-actions">
+              <a href="{% url 'update_post' post.id %}" class="update-btn"
+                >Update</a
+              >
+              <a href="{% url 'delete_post' post.id %}" class="delete-btn"
+                >Delete</a
+              >
+            </div>
+          </div>
+          <hr />
+          {% empty %}
+          <p>No posts to display.</p>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+    <footer>
+      <p>Website details go here.</p>
+    </footer>
+  </body>
+</html>

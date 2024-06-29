@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Post</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Update Post</h1>
+      <form
+        method="POST"
+        action="{% url 'update_post' post.id %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <label for="text">Text:</label>
+        <textarea id="text" name="text" rows="4" required>
+{{ post.text }}</textarea
+        ><br /><br />
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" /><br /><br />
+
+        <label for="hashtags">Hashtags (comma-separated):</label>
+        <input
+          type="text"
+          id="hashtags"
+          name="hashtags"
+          value="{% for tag in post.hashtags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+        /><br /><br />
+
+        <button type="submit">Update Post</button>
+      </form>
+    </div>
+  </body>
+</html>

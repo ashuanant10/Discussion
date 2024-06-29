@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+    <link href="{% static 'styles.css' %}" rel="stylesheet" />
+    <script src="{% static 'scripts.js' %}"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      {% block content %}
+      <h2 class="text-2xl font-bold mb-4">Create Post</h2>
+      <form
+        id="createPostForm"
+        method="post"
+        enctype="multipart/form-data"
+        class="space-y-4"
+      >
+        {% csrf_token %}
+        <textarea
+          name="text"
+          placeholder="What's on your mind?"
+          required
+          class="border rounded-md w-full p-2"
+        ></textarea>
+        <input type="file" name="image" class="border rounded-md p-2" />
+        <input
+          type="text"
+          name="hashtags"
+          placeholder="Add hashtags, separated by commas"
+          class="border rounded-md w-full p-2"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Post
+        </button>
+      </form>
+      {% endblock %}
+    </div>
+  </body>
+</html>

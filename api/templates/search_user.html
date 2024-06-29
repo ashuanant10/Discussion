@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Users</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Search Users</h1>
+      <form method="POST" action="{% url 'search_user' %}">
+        {% csrf_token %}
+        <label for="name_query">Search by Name:</label>
+        <input
+          type="text"
+          id="name_query"
+          name="name_query"
+          value="{{ name_query }}"
+          required
+        /><br /><br />
+
+        <button type="submit">Search</button>
+      </form>
+
+      {% if error %}
+      <p>{{ error }}</p>
+      {% endif %}
+
+      <h2>Search Results:</h2>
+      <ul>
+        {% if users %} {% for user in users %}
+        <li>{{ user.name }} - {{ user.email }}</li>
+        {% empty %}
+        <li>No users found.</li>
+        {% endfor %} {% else %}
+        <li>No users found.</li>
+        {% endif %}
+      </ul>
+    </div>
+  </body>
+</html>

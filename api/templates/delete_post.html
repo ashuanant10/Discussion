@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Post</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Delete Post</h1>
+      <p>Are you sure you want to delete the following post?</p>
+      <p>{{ post.text }}</p>
+      {% if post.image %}
+      <img src="{{ post.image.url }}" alt="Post Image" />
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discussions by Tags</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Discussions by Tags</h1>
+      <form method="POST" action="{% url 'list_discussions_by_tags' %}">
+        {% csrf_token %}
+        <label for="tags">Tags (comma-separated):</label>
+        <input
+          type="text"
+          id="tags"
+          name="tags"
+          value="{% if tags %}{{ tags|join:', ' }}{% endif %}"
+          required
+        /><br /><br />
+        <button type="submit">Search</button>
+      </form>
+
+      <h2>Discussion List:</h2>
+      <ul>
+        {% if discussions %} {% for discussion in discussions %}
+        <li>
+          <strong>{{ discussion.text }}</strong><br />
+          {% if discussion.image_url %}
+          <img src="{{ discussion.image_url }}" alt="Discussion Image" /><br />
+          {% endif %} Tags: {{ discussion.hashtags|join:", " }}<br />
+          Created: {{ discussion.created_at }}<br />
+          Updated: {{ discussion.updated_at }}
+        </li>
+        {% empty %}
+        <li>No discussions found.</li>
+        {% endfor %} {% else %}
+        <li>{{ error }}</li>
+        {% endif %}
+      </ul>
+    </div>
+  </body>
+</html>
